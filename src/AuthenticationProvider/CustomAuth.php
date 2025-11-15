@@ -17,31 +17,27 @@ class CustomAuth extends AuthProvider {
         ?string $redirectUri,
         array $extensionData = []
     ) {
-        // extensionData 应包含 urlAuthorize, urlAccessToken, urlResourceOwnerDetails（用户信息 URL）
         $this->provider = new GenericProvider([
             'clientId'                => $clientId,
             'clientSecret'            => $clientSecret,
             'redirectUri'             => $redirectUri,
-            'urlAuthorize'            => '',
-            'urlAccessToken'          => '',
-            'urlResourceOwnerDetails' => '',
+            'urlAuthorize'            => $extensionData['urlAuthorize'] ?? '',
+            'urlAccessToken'          => $extensionData['urlAccessToken'] ?? '',
+            'urlResourceOwnerDetails' => $extensionData['urlResourceOwnerDetails'] ?? '',
         ]);
     }
 
-    /**
-     * Optional: inject a PSR-3 logger instance to allow logging in this provider.
-     */
 
     public function login( ?string &$key, ?string &$secret, ?string &$authUrl ): bool {
         $authUrl = $this->provider->getAuthorizationUrl([
-            'scope' => [] // 可选
+            'scope' => []
         ]);
         $secret = $this->provider->getState();
         return true;
     }
 
     public function logout( UserIdentity &$user ): void {
-        // 如果需要，可以在这里调用提供商的登出端点或清理本地 session
+        //可调用提供商的登出端点或清理本地 session
     }
 
     public function getUser( string $key, string $secret, &$errorMessage ) {
@@ -67,6 +63,5 @@ class CustomAuth extends AuthProvider {
     }
 
     public function saveExtraAttributes( int $id ): void {
-        // 可选：把 avatar 等额外数据写入用户属性
     }
 }
