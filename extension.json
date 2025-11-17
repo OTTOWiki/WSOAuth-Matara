@@ -1,11 +1,11 @@
 {
-	"name": "WSOAuth",
+	"name": "WSOAuth-Matara",
 	"version": "9.0.1",
 	"namemsg": "wsoauth-extensionname",
-	"url": "https://www.mediawiki.org/wiki/Extension:WSOAuth",
+	"url": "https://github.com/OTTOWiki/WSOAuth-Matara",
 	"type": "other",
 	"author": [
-		"[https://www.mediawiki.org/wiki/User:Xxmarijnw Marijn van Wezel]"
+		"[https://www.mediawiki.org/wiki/User:Xxmarijnw Marijn van Wezel],[https://wiki.ottohub.cn/User:琪露若]"
 	],
 	"descriptionmsg": "wsoauth-desc",
 	"license-name": "MIT",
