@@ -7,7 +7,7 @@
 3. 在 `LocalSettings.php` 中添加以下配置：
 ```php
 wfLoadExtension( 'PluggableAuth' );
-wfLoadExtension( 'WSOAuth' );
+wfLoadExtension( 'WSOAuth-Matara' );
 ```
 4. 运行 `php maintenance/run.php update` 来更新数据库。
 5. 运行 `composer install` 来安装依赖。
