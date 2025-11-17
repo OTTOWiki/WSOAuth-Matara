@@ -30,7 +30,7 @@ class CustomAuth extends AuthProvider {
 
     public function login( ?string &$key, ?string &$secret, ?string &$authUrl ): bool {
         $authUrl = $this->provider->getAuthorizationUrl([
-            'scope' => $extensionData['scope'] ?? [],
+            'scope' => [ 'email profile' ],
         ]);
         $secret = $this->provider->getState();
         return true;
@@ -56,8 +56,8 @@ class CustomAuth extends AuthProvider {
             //error_log( 'CustomAuth user data: ' . var_export( $data, true ) );
             //根据提供商返回的数据结构调整字段映射
             return [
-                'name' => $data['given_name']  ?? null,
-                'realname' => $data['name'] ?? null,
+                'name' => $data['name']  ?? null,
+                'realname' => $data['given_name'] ?? null,
                 'email' => $data['email'] ?? null
             ];
         } catch (\Exception $e) {

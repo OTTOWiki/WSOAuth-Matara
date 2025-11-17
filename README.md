@@ -36,6 +36,26 @@ $wgPluggableAuth_Config['使用XXX登录'] = [
     ],
 ];
 ```
+### 配置scope
+由于神秘问题，我们无法从LocalSettings中获取scope，因此您需要在CustomAuth.php中手动添加scope。
+在约53行，找到如下内容：
+
+```php
+		$authUrl = $this->provider->getAuthorizationUrl( [
+			'scope' => [ 'email' ]
+		] );
+
+```
+
+将其修改为您需要的scope，例如谷歌的scope为：
+
+```php
+        $authUrl = $this->provider->getAuthorizationUrl( [
+            'scope' => [ 'email profile' ]
+        ] );
+
+```
+
 ### 修改字段映射
 由于WSOAuth的限制，您可能需要在CustomAuth.php中手动修改以下内容：
 
@@ -53,8 +73,8 @@ return [
 如Google格式：
 
 ```php
-                'name' => $data['given_name']  ?? null,
-                'realname' => $data['name'] ?? null,
+                'name' => $data['name']  ?? null,
+                'realname' => $data['given_name'] ?? null,
                 'email' => $data['email'] ?? null
 ```
 
