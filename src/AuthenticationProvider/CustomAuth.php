@@ -30,7 +30,7 @@ class CustomAuth extends AuthProvider {
 
     public function login( ?string &$key, ?string &$secret, ?string &$authUrl ): bool {
         $authUrl = $this->provider->getAuthorizationUrl([
-            'scope' => []
+            'scope' => $extensionData['scope'] ?? [],
         ]);
         $secret = $this->provider->getState();
         return true;
@@ -52,8 +52,11 @@ class CustomAuth extends AuthProvider {
             $token = $this->provider->getAccessToken('authorization_code', ['code' => $_GET['code']]);
             $user = $this->provider->getResourceOwner($token);
             $data = $user->toArray();
+            //下面这行日志用于查看提供商返回的用户数据结构，如果需要的话可以启用它，请一定记得在生产环境中禁用
+            //error_log( 'CustomAuth user data: ' . var_export( $data, true ) );
+            //根据提供商返回的数据结构调整字段映射
             return [
-                'name' => $data['id'] ?? ($data['username'] ?? null),
+                'name' => $data['given_name']  ?? null,
                 'realname' => $data['name'] ?? null,
                 'email' => $data['email'] ?? null
             ];
