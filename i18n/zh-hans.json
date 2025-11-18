@@ -7,7 +7,7 @@
 			"沈澄心"
 		]
 	},
-	"wsoauth-extensionname": "WSOAuth",
+	"wsoauth-extensionname": "WSOAuth-摩多罗",
 	"wsoauth-desc": "为PluggableAuth插件提供OAuth验证。",
 	"wsoauth-auth-providers-desc": "自定义OAuth提供商列表，及其对应的类名。",
 	"wsoauth-auto-populate-groups-desc": "用户验证后自动授予的MediaWiki用户组列表。",
