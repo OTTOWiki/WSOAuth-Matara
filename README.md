@@ -78,6 +78,26 @@ return [
                 'email' => $data['email'] ?? null
 ```
 
+## 注意
+
+在某些站点上，您可能会遇到以下错误：
+
+```php
+PHP Fatal error: Declaration of MWCallbackStream::write($string) must be compatible with Psr\Http\Message\StreamInterface::write(string $string): int in /xxxwiki/includes/http/MWCallbackStream.php on line 50
+```
+
+这是由于MediaWiki实现的 write 方法签名与 PSR-7 的 StreamInterface 不一致。接口定义为 write(string $string): int，而当前实现缺少类型提示/返回类型，导致 PHP 抛出致命错误。修复方法是把方法签名改成与接口完全一致，并返回 int。
+
+修复示例：
+把include/http/MWCallbackStream.php中的write方法改成：
+
+```php
+    public function write(string $string): int {
+        $result = ($this->callback)($this, $string);
+        return (int)$result;
+    }
+```
+
 ## WSOAuth原版简介
 
 The **WSOAuth** extension enables you to delegate authentication to an OAuth provider. It provides a layer on top of PluggableAuth to allow authentication via a number of OAuth providers.
